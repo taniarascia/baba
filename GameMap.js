@@ -1,7 +1,7 @@
 export class GameMap {
   constructor(height, width) {
-    this.height = height
-    this.width = width
+    this.height = height - 1
+    this.width = width - 1
     this.grid = null
   }
 
