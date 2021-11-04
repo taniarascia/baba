@@ -8,9 +8,16 @@ export class Game {
   init() {
     this.map.buildEmptyGrid()
     this.map.addEntitiesToGrid(this.entities)
+    this.setRules()
+
+    console.log(this.rules)
   }
 
-  setRules() {}
+  setRules() {
+    const rules = this.map.findCurrentRulesOnGrid()
+
+    this.rules = rules
+  }
 
   isWin() {
     // check win condition

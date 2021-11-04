@@ -27,3 +27,5 @@ export const nouns = Object.keys(nounTypes)
 export const actions = Object.keys(actionTypes)
 export const connectors = Object.keys(connectorTypes)
 export const directions = Object.keys(directionTypes)
+export const horizontalDirections = [directionTypes.LEFT, directionTypes.RIGHT]
+export const verticalDirections = [directionTypes.UP, directionTypes.DOWN]

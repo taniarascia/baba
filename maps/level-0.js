@@ -34,6 +34,7 @@ const entities = [
   new Entity(nounTypes.WALL, { x: 13, y: 11 }),
   new Entity(nounTypes.WALL, { x: 14, y: 11 }),
 ]
+
 const textEntities = [
   new TextEntity(nounTypes.BABA, { x: 4, y: 5 }),
   new TextEntity(connectorTypes.IS, { x: 5, y: 5 }),
