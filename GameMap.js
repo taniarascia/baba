@@ -20,4 +20,8 @@ export class GameMap {
 
     this.grid = grid
   }
+
+  addEntitiesToGrid(entities) {
+    entities.forEach(entity => {})
+  }
 }

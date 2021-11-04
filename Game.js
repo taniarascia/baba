@@ -9,6 +9,10 @@ export class Game {
     this.map.buildEmptyGrid()
   }
 
+  setRules() {
+    
+  }
+
   isWin() {
     // check win condition
   }

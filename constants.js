@@ -8,6 +8,8 @@ export const nounTypes = {
 export const actionTypes = {
   YOU: 'YOU',
   PUSH: 'PUSH',
+  STOP: 'STOP',
+  WIN: 'WIN',
 }
 
 export const connectorTypes = {
