@@ -1,0 +1,16 @@
+{
+  "name": "baba",
+  "version": "1.0.0",
+  "description": "You know what they say. If you can't beat it, make your own implementation.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "eslint": "^8.1.0"
+  }
+}

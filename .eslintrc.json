@@ -1,0 +1,18 @@
+{
+  "ignorePatterns": ["node_modules"],
+  "rules": {
+    "no-var": 1,
+    "no-unused-vars": 1,
+    "no-use-before-define": "error"
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  }
+}
