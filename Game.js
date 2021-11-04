@@ -1,17 +1,16 @@
 export class Game {
   constructor(map, entities) {
     this.map = map
-    this.entites = entities
+    this.entities = entities
     this.rules = []
   }
 
   init() {
     this.map.buildEmptyGrid()
+    this.map.addEntitiesToGrid(this.entities)
   }
 
-  setRules() {
-    
-  }
+  setRules() {}
 
   isWin() {
     // check win condition

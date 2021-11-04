@@ -22,6 +22,8 @@ export class GameMap {
   }
 
   addEntitiesToGrid(entities) {
-    entities.forEach(entity => {})
+    entities.forEach(entity => {
+      this.grid[entity.coords.y][entity.coords.x] = entity
+    })
   }
 }

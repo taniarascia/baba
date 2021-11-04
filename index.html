@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Baba Is You</title>
 
     <style>
@@ -20,10 +21,32 @@
     </style>
   </head>
 
+  <pre id="root"></pre>
+
   <body>
-    <script type="module" src="./server.js"></script>
-    <script>
+    <script type="module">
+      import { game } from './server.js'
+
+      const root = document.getElementById('root')
+      root.innerHTML = ''
+
       console.log(game.map.grid)
+
+      game.map.grid.forEach(row => {
+        row.forEach(column => {
+          if (!column) {
+            root.innerHTML += '    '
+          } else {
+            if (column.noun === 'YOU') root.innerHTML += 'YOU_'
+            else if (column.noun === 'YOU') root.innerHTML += 'WIN_'
+            else if (column.noun === 'IS') root.innerHTML += '_IS_'
+            else {
+              root.innerHTML += column.noun
+            }
+          }
+        })
+        root.innerHTML += `\n`
+      })
     </script>
   </body>
 </html>
