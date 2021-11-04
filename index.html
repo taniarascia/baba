@@ -15,15 +15,19 @@
       }
 
       pre {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
         background: #222;
         font-family: Menlo, monospace;
       }
     </style>
   </head>
 
-  <pre id="root"></pre>
-
   <body>
+    <div>
+      <pre id="root"></pre>
+    </div>
     <script type="module">
       import { game } from './server.js'
 
