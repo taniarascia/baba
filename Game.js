@@ -9,8 +9,6 @@ export class Game {
     this.map.buildEmptyGrid()
     this.map.addEntitiesToGrid(this.entities)
     this.setRules()
-
-    console.log(this.rules)
   }
 
   setRules() {
