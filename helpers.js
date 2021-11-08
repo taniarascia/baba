@@ -1,6 +1,25 @@
 import { nouns, actions, connectors, directionTypes } from './constants.js'
 import { Rule } from './Rule.js'
 
+export function getEntities(grid) {
+  return grid.flat().filter(row => row)
+}
+
+export function isPlayer(entity, youRule) {
+  return !entity.isText && entity.noun === youRule?.noun
+}
+
+export function isWin(entity, winRule) {
+  return !entity.isText && entity.noun === winRule?.noun
+}
+
+export function log(the) {
+  console.log('rules', the.rules)
+  console.log('player', the.player)
+  console.log('game over', the.gameOver)
+  console.log('level complete', the.levelComplete)
+}
+
 export function progress({ x, y }, direction, steps = 1) {
   switch (direction) {
     case directionTypes.UP:
