@@ -2,13 +2,21 @@ import { actionTypes, directionTypes } from './constants.js'
 import { findAdjacentRule, isPlayer, isWin, log } from './helpers.js'
 
 export class Game {
-  constructor(map, entities) {
+  constructor(map, entities, gameInterface) {
     this.map = map
+    this.interface = gameInterface
     this.entities = entities
+
+    // Rules
     this.rules = []
     this.youRule = null
+    this.winRule = null
+
+    // Player
     this.player = []
     this.moves = []
+
+    // Game state
     this.gameOver = false
     this.levelComplete = false
   }
@@ -27,6 +35,7 @@ export class Game {
     this.checkForLevelComplete()
 
     log(this)
+    this.interface.render(this.entities)
   }
 
   findCurrentRulesOnGrid() {
@@ -42,6 +51,7 @@ export class Game {
 
     this.rules = rules
     this.youRule = this.rules.find(rule => rule.action === actionTypes.YOU)
+    this.winRule = this.rules.find(rule => rule.action === actionTypes.WIN)
   }
 
   findPlayer() {
@@ -53,18 +63,16 @@ export class Game {
   }
 
   checkForLevelComplete() {
-    const winRule = this.rules.find(rule => rule.action === actionTypes.WIN)
-
     // // If rules including you and win don't both exit, win is impossible
-    // if (!this.youRule || !winRule) return
+    if (!this.youRule || !this.winRule) return
 
-    // // Win condition 1: X IS YOU and X IS WIN are both true
-    // if (this.youRule.noun === winRule.noun) {
-    //   this.levelComplete = true
-    // }
+    // Win condition 1: X IS YOU and X IS WIN are both true
+    if (this.youRule.noun === this.winRule.noun) {
+      this.levelComplete = true
+    }
 
     // Win condition 2: YOU action is at the same coordinates as the WIN action
-    const winEntity = this.entities.find(entity => isWin(entity, winRule))
+    const winEntity = this.entities.find(entity => isWin(entity, this.winRule))
 
     if (winEntity) {
       this.player.forEach(playerEntity => {
@@ -79,6 +87,8 @@ export class Game {
   }
 
   checkForGameOver() {
-    // check defeat condition
+    if (!this.youRule) {
+      this.gameOver = true
+    }
   }
 }
