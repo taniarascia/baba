@@ -1,5 +1,6 @@
 import { actionTypes, directionTypes } from './constants.js'
-import { findAdjacentRule, isPlayer, isWin, log } from './helpers.js'
+import { findAdjacentRule, progress, getEntities, isPlayer, isWin, log } from './helpers.js'
+import { Entity } from './Entity.js'
 
 export class Game {
   constructor(map, entities, gameInterface) {
@@ -22,26 +23,30 @@ export class Game {
   }
 
   init() {
+    this.populateMap()
     this.step()
   }
 
-  step() {
+  populateMap() {
     this.map.buildEmptyGrid()
     this.map.addEntitiesToGrid(this.entities)
+  }
 
+  step() {
+    this.entities = getEntities(this.map.grid)
     this.findCurrentRulesOnGrid()
     this.findPlayer()
     this.checkForGameOver()
     this.checkForLevelComplete()
 
     log(this)
-    this.interface.render(this.entities)
+    this.interface.render(this.map.grid)
   }
 
   findCurrentRulesOnGrid() {
     const rules = []
 
-    this.entities.forEach(entity => {
+    this.entities.forEach((entity) => {
       const horizontalRule = findAdjacentRule(this.map.grid, entity, directionTypes.RIGHT)
       const verticalRule = findAdjacentRule(this.map.grid, entity, directionTypes.DOWN)
 
@@ -50,20 +55,36 @@ export class Game {
     })
 
     this.rules = rules
-    this.youRule = this.rules.find(rule => rule.action === actionTypes.YOU)
-    this.winRule = this.rules.find(rule => rule.action === actionTypes.WIN)
+    this.youRule = this.rules.find((rule) => rule.action === actionTypes.YOU)
+    this.winRule = this.rules.find((rule) => rule.action === actionTypes.WIN)
   }
 
   findPlayer() {
-    this.entities.forEach(entity => {
+    this.player = []
+
+    this.entities.forEach((entity) => {
       if (isPlayer(entity, this.youRule)) {
         this.player.push(entity)
       }
     })
   }
 
+  movePlayer(direction) {
+    // temporary, until function actually checks for validity
+    this.player.forEach((playerEntity) => {
+      const newPlayerEntity = new Entity(
+        playerEntity.noun,
+        progress(playerEntity.coords, direction)
+      )
+      this.map.grid[playerEntity.coords.y][playerEntity.coords.x] = null
+      this.map.grid[newPlayerEntity.coords.y][newPlayerEntity.coords.x] = newPlayerEntity
+    })
+
+    this.step()
+  }
+
   checkForLevelComplete() {
-    // // If rules including you and win don't both exit, win is impossible
+    // If rules including you and win don't both exit, win is impossible
     if (!this.youRule || !this.winRule) return
 
     // Win condition 1: X IS YOU and X IS WIN are both true
@@ -72,10 +93,10 @@ export class Game {
     }
 
     // Win condition 2: YOU action is at the same coordinates as the WIN action
-    const winEntity = this.entities.find(entity => isWin(entity, this.winRule))
+    const winEntity = this.entities.find((entity) => isWin(entity, this.winRule))
 
     if (winEntity) {
-      this.player.forEach(playerEntity => {
+      this.player.forEach((playerEntity) => {
         if (
           winEntity.coords.x === playerEntity.coords.x &&
           winEntity.coords.y === playerEntity.coords.y

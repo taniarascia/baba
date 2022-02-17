@@ -18,15 +18,17 @@ export class GameInterface {
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height)
   }
 
-  render(entities) {
-    entities.forEach(entity => {
-      this.context.fillStyle = entity.isText ? 'white' : colorMap[entity.noun]
-      this.context.fillRect(
-        entity.coords.x * multiplier,
-        entity.coords.y * multiplier,
-        multiplier,
-        multiplier
-      )
+  render(grid) {
+    grid.forEach((row, y) => {
+      row.forEach((entity, x) => {
+        if (entity) {
+          this.context.fillStyle = entity.isText ? 'white' : colorMap[entity.noun]
+          this.context.fillRect(x * multiplier, y * multiplier, multiplier, multiplier)
+        } else {
+          this.context.fillStyle = 'black'
+          this.context.fillRect(x * multiplier, y * multiplier, multiplier, multiplier)
+        }
+      })
     })
   }
 }

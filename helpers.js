@@ -2,7 +2,7 @@ import { nouns, actions, connectors, directionTypes } from './constants.js'
 import { Rule } from './Rule.js'
 
 export function getEntities(grid) {
-  return grid.flat().filter(row => row)
+  return grid.flat().filter((row) => row)
 }
 
 export function isPlayer(entity, youRule) {
@@ -13,11 +13,11 @@ export function isWin(entity, winRule) {
   return !entity.isText && entity.noun === winRule?.noun
 }
 
-export function log(the) {
-  console.log('rules', the.rules)
-  console.log('player', the.player)
-  console.log('game over', the.gameOver)
-  console.log('level complete', the.levelComplete)
+export function log(that) {
+  console.log('rules', that.rules)
+  console.log('player', that.player)
+  console.log('game over', that.gameOver)
+  console.log('level complete', that.levelComplete)
 }
 
 export function progress({ x, y }, direction, steps = 1) {

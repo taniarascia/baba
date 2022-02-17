@@ -5,12 +5,16 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "serve": "http-server -o"
   },
   "author": "",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
     "eslint": "^8.1.0"
+  },
+  "dependencies": {
+    "http-server": "^14.1.0"
   }
 }
