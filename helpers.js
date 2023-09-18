@@ -14,10 +14,11 @@ export function isWin(entity, winRule) {
 }
 
 export function log(that) {
-  console.log('rules', that.rules)
-  console.log('player', that.player)
-  console.log('game over', that.gameOver)
-  console.log('level complete', that.levelComplete)
+  // console.log('map', that.map)
+  // console.log('rules', that.rules)
+  // console.log('player', that.player)
+  // console.log('game over', that.gameOver)
+  // console.log('level complete', that.levelComplete)
 }
 
 export function progress({ x, y }, direction, steps = 1) {
@@ -35,8 +36,10 @@ export function progress({ x, y }, direction, steps = 1) {
 
 export function findAdjacentRule(grid, cell, direction) {
   const adjacentCell2 = grid[progress(cell.coords, direction).y][progress(cell.coords, direction).x]
+  console.log(adjacentCell2)
   const adjacentCell3 =
     grid[progress(cell.coords, direction, 2).y][progress(cell.coords, direction, 2).x]
+  console.log(adjacentCell3)
 
   if (cell.isText && nouns.includes(cell.noun)) {
     // See if the next item is a connector
