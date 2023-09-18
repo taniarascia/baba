@@ -21,12 +21,34 @@ export function isWin(entity, winRule) {
   return entity.isUnit && entity.word === winRule?.noun
 }
 
+export function checkIsOutOfBounds(playerEntity, mapEditor) {
+  // East/west collision
+  if (playerEntity.coords.x >= mapEditor.width) {
+    return true
+  }
+
+  if (playerEntity.coords.x < 0) {
+    return true
+  }
+
+  // North/south collision
+  if (playerEntity.coords.y >= mapEditor.height) {
+    return true
+  }
+
+  if (playerEntity.coords.y < 0) {
+    return true
+  }
+
+  return false
+}
+
 export function log(that) {
   // console.log('map', that.map)
-  // console.log('rules', that.rules)
-  // console.log('player', that.player)
-  // console.log('game over', that.gameOver)
-  // console.log('level complete', that.levelComplete)
+  console.log('rules', that.rules)
+  console.log('player', that.player)
+  console.log('game over', that.gameOver)
+  console.log('level complete', that.levelComplete)
 }
 
 export function progress({ x, y }, direction, steps = 1) {

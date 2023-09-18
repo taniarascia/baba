@@ -1,5 +1,6 @@
 export class MapEditor {
   constructor(height, width) {
+    // -1 to account to starting from 0
     this.height = height - 1
     this.width = width - 1
     this.grid = null

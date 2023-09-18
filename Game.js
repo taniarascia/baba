@@ -3,6 +3,7 @@ import {
   findAdjacentRule,
   progress,
   getEntities,
+  checkIsOutOfBounds,
   isPlayer,
   isWin,
   last,
@@ -12,9 +13,9 @@ import {
 import { UnitEntity } from './Entity.js'
 
 export class Game {
-  constructor(mapEditor, entities, gameInterface) {
+  constructor(mapEditor, entities, screenInterface) {
     this.mapEditor = mapEditor
-    this.interface = gameInterface
+    this.interface = screenInterface
     this.entities = entities
 
     // Rules
@@ -52,18 +53,26 @@ export class Game {
     this.interface.renderGameOver()
   }
 
+  populateLevelComplete() {
+    this.interface.renderLevelComplete()
+  }
+
   step() {
     this.entities = getEntities(this.mapEditor.grid)
     this.findCurrentRulesOnGrid()
     this.findPlayer()
-    this.checkForGameOver()
 
+    this.checkForGameOver()
     if (this.gameOver) {
       this.populateGameOver()
       return
     }
 
     this.checkForLevelComplete()
+    if (this.levelComplete) {
+      this.populateLevelComplete()
+      return
+    }
 
     log(this)
     this.interface.render(this.mapEditor.grid)
@@ -104,9 +113,17 @@ export class Game {
         playerEntity.word,
         progress(playerEntity.coords, direction)
       )
-      this.mapEditor.grid[playerEntity.coords.y][playerEntity.coords.x] = last(
-        this.mapEditor.previousGrids
-      )[playerEntity.coords.y][playerEntity.coords.x]
+
+      const isOutOfBounds = checkIsOutOfBounds(newPlayerEntity, this.mapEditor)
+
+      if (isOutOfBounds) {
+        return
+      }
+
+      // Set the previous cell to whatever it was in the previous state
+      const previousGrid = last(this.mapEditor.previousGrids)
+      this.mapEditor.grid[playerEntity.coords.y][playerEntity.coords.x] =
+        previousGrid[playerEntity.coords.y][playerEntity.coords.x]
       this.mapEditor.grid[newPlayerEntity.coords.y][newPlayerEntity.coords.x] = newPlayerEntity
     })
 
@@ -114,17 +131,16 @@ export class Game {
   }
 
   checkForLevelComplete() {
-    // If rules including you and win don't both exit, win is impossible
+    // If rules including you and win don't both exist, win is impossible
     if (!this.youRule || !this.winRule) return
 
     // Win condition 1: X IS YOU and X IS WIN are both true
-    if (this.youRule.word === this.winRule.word) {
+    if (this.youRule.noun === this.winRule.noun) {
       this.levelComplete = true
     }
-
-    // Win condition 2: YOU action is at the same coordinates as the WIN action
-    const winEntity = this.entities.find((entity) => isWin(entity, this.winRule))
-
+    const previousEntities = getEntities(last(this.mapEditor.previousGrids))
+    // Win condition 2: YOU action is at the same coordinates as the WIN action was in the previous step
+    const winEntity = previousEntities.find((entity) => isWin(entity, this.winRule))
     if (winEntity) {
       this.player.forEach((playerEntity) => {
         if (

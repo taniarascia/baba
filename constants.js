@@ -29,13 +29,6 @@ export const directionTypes = {
   RIGHT: 'RIGHT',
 }
 
-export const nouns = Object.keys(nounTypes)
-export const actions = Object.keys(actionTypes)
-export const connectors = Object.keys(connectorTypes)
-export const directions = Object.keys(directionTypes)
-export const horizontalDirections = [directionTypes.LEFT, directionTypes.RIGHT]
-export const verticalDirections = [directionTypes.UP, directionTypes.DOWN]
-
 export const entityColorDictionary = {
   BABA: '#ffffff',
   WALL: '#212737',
@@ -57,3 +50,10 @@ export const actionBgColorDictionary = {
   PUSH: '#8B6942',
   WIN: '#ECE392',
 }
+
+export const nouns = Object.keys(nounTypes)
+export const actions = Object.keys(actionTypes)
+export const connectors = Object.keys(connectorTypes)
+export const directions = Object.keys(directionTypes)
+export const horizontalDirections = [directionTypes.LEFT, directionTypes.RIGHT]
+export const verticalDirections = [directionTypes.UP, directionTypes.DOWN]
