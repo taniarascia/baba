@@ -6,11 +6,11 @@ export function getEntities(grid) {
 }
 
 export function isPlayer(entity, youRule) {
-  return !entity.isText && entity.noun === youRule?.noun
+  return entity.isUnit && entity.word === youRule?.noun
 }
 
 export function isWin(entity, winRule) {
-  return !entity.isText && entity.noun === winRule?.noun
+  return entity.isUnit && entity.word === winRule?.noun
 }
 
 export function log(that) {
@@ -36,18 +36,16 @@ export function progress({ x, y }, direction, steps = 1) {
 
 export function findAdjacentRule(grid, cell, direction) {
   const adjacentCell2 = grid[progress(cell.coords, direction).y][progress(cell.coords, direction).x]
-  console.log(adjacentCell2)
   const adjacentCell3 =
     grid[progress(cell.coords, direction, 2).y][progress(cell.coords, direction, 2).x]
-  console.log(adjacentCell3)
 
-  if (cell.isText && nouns.includes(cell.noun)) {
+  if (cell.isText && nouns.includes(cell.word)) {
     // See if the next item is a connector
-    if (adjacentCell2?.isText && connectors.includes(adjacentCell2.noun)) {
+    if (adjacentCell2?.isText && connectors.includes(adjacentCell2.word)) {
       // See if the next item is an action
-      if (adjacentCell3?.isText && actions.includes(adjacentCell3.noun)) {
+      if (adjacentCell3?.isText && actions.includes(adjacentCell3.word)) {
         // Congratulations, you found a rule
-        const rule = new Rule(cell.noun, adjacentCell3.noun)
+        const rule = new Rule(cell.word, adjacentCell3.word)
 
         return rule
       }

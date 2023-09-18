@@ -1,6 +1,6 @@
 import { actionTypes, directionTypes } from './constants.js'
 import { findAdjacentRule, progress, getEntities, isPlayer, isWin, log } from './helpers.js'
-import { Entity } from './Entity.js'
+import { UnitEntity } from './Entity.js'
 
 export class Game {
   constructor(map, entities, gameInterface) {
@@ -72,8 +72,8 @@ export class Game {
   movePlayer(direction) {
     // temporary, until function actually checks for validity
     this.player.forEach((playerEntity) => {
-      const newPlayerEntity = new Entity(
-        playerEntity.noun,
+      const newPlayerEntity = new UnitEntity(
+        playerEntity.word,
         progress(playerEntity.coords, direction)
       )
       this.map.grid[playerEntity.coords.y][playerEntity.coords.x] = null
@@ -88,7 +88,7 @@ export class Game {
     if (!this.youRule || !this.winRule) return
 
     // Win condition 1: X IS YOU and X IS WIN are both true
-    if (this.youRule.noun === this.winRule.noun) {
+    if (this.youRule.word === this.winRule.word) {
       this.levelComplete = true
     }
 

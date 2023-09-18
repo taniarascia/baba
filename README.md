@@ -4,13 +4,12 @@ You know what they say. If you can't beat it, make your own implementation.
 
 ![Level+0](https://user-images.githubusercontent.com/11951801/139968808-b0446696-92b4-4113-96bc-706e4310d934.png)
 
-## Entity
+## UnitEntity
 
-An entity combines a **Noun** and **Actions**.
+An entity is the manifestation of a noun.
 
-- It can be one **Noun**
-- **Noun** can be transform
-  ed based on rules that are applied
+- It can be one **Unit**
+- **Unit** can be transformed based on rules that are applied
   - `BABA IS YOU` -> `ROCK IS YOU` will give the user control of all `ROCK` entities
   - `ROCK IS FLAG` -> all `ROCK` entities will become `FLAG` entities
 - It can have one or more **Actions** applied

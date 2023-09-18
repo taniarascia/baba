@@ -42,17 +42,17 @@ export class GameInterface {
             this.canvas.height
           )
           if (!entity.isText) {
-            this.context.fillStyle = entityColorMap[entity.noun]
+            this.context.fillStyle = entityColorMap[entity.word]
             this.context.fillRect(x * multiplier, y * multiplier, multiplier, multiplier)
           } else {
-            if (actionBackgroundColorMap[entity.noun]) {
-              this.context.fillStyle = actionBackgroundColorMap[entity.noun]
+            if (actionBackgroundColorMap[entity.word]) {
+              this.context.fillStyle = actionBackgroundColorMap[entity.word]
               this.context.fillRect(x * multiplier, y * multiplier, multiplier, multiplier)
             }
             this.context.font = '40px Arial'
-            this.context.fillStyle = textColorMap[entity.noun] || '#000000'
+            this.context.fillStyle = textColorMap[entity.word] || '#000000'
             this.context.fillText(
-              entity.noun,
+              entity.word,
               x * multiplier,
               y * multiplier + multiplier,
               multiplier,
