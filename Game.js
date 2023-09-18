@@ -48,11 +48,21 @@ export class Game {
     this.mapEditor.addPreviousGrid(previousMap)
   }
 
+  populateGameOver() {
+    this.interface.renderGameOver()
+  }
+
   step() {
     this.entities = getEntities(this.mapEditor.grid)
     this.findCurrentRulesOnGrid()
     this.findPlayer()
     this.checkForGameOver()
+
+    if (this.gameOver) {
+      this.populateGameOver()
+      return
+    }
+
     this.checkForLevelComplete()
 
     log(this)

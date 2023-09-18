@@ -2,6 +2,7 @@ export class Entity {
   constructor(word, coords = { x: 0, y: 0 }) {
     this.word = word
     this.coords = coords
+    // this.pushable = pushable
   }
 }
 
