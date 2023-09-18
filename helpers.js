@@ -1,6 +1,14 @@
 import { nouns, actions, connectors, directionTypes } from './constants.js'
 import { Rule } from './Rule.js'
 
+export function last(array) {
+  return array[array.length - 1]
+}
+
+export function clone(array) {
+  return JSON.parse(JSON.stringify(array))
+}
+
 export function getEntities(grid) {
   return grid.flat().filter((row) => row)
 }

@@ -1,3 +1,9 @@
+export const textTypes = {
+  NOUN: 'NOUN',
+  ACTION: 'ACTION',
+  CONNECTOR: 'CONNECTOR',
+}
+
 export const nounTypes = {
   BABA: 'BABA',
   ROCK: 'ROCK',

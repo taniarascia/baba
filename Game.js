@@ -1,5 +1,14 @@
-import { actionTypes, directionTypes } from './constants.js'
-import { findAdjacentRule, progress, getEntities, isPlayer, isWin, log } from './helpers.js'
+import { textTypes, actionTypes, directionTypes } from './constants.js'
+import {
+  findAdjacentRule,
+  progress,
+  getEntities,
+  isPlayer,
+  isWin,
+  last,
+  clone,
+  log,
+} from './helpers.js'
 import { UnitEntity } from './Entity.js'
 
 export class Game {
@@ -30,6 +39,13 @@ export class Game {
   populateMap() {
     this.mapEditor.buildEmptyGrid()
     this.mapEditor.addEntitiesToGrid(this.entities)
+    this.populateFirstPreviousMap()
+  }
+
+  populateFirstPreviousMap() {
+    const previousMap = clone(this.mapEditor.grid)
+    previousMap[9][5] = null // clear player entity
+    this.mapEditor.addPreviousGrid(previousMap)
   }
 
   step() {
@@ -47,11 +63,13 @@ export class Game {
     const rules = []
 
     this.entities.forEach((entity) => {
-      const horizontalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.RIGHT)
-      const verticalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.DOWN)
+      if (entity.isText && entity.type === textTypes.NOUN) {
+        const horizontalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.RIGHT)
+        const verticalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.DOWN)
 
-      if (horizontalRule) rules.push(horizontalRule)
-      if (verticalRule) rules.push(verticalRule)
+        if (horizontalRule) rules.push(horizontalRule)
+        if (verticalRule) rules.push(verticalRule)
+      }
     })
 
     this.rules = rules
@@ -76,7 +94,9 @@ export class Game {
         playerEntity.word,
         progress(playerEntity.coords, direction)
       )
-      this.mapEditor.grid[playerEntity.coords.y][playerEntity.coords.x] = null // TODO: Must be what was there before
+      this.mapEditor.grid[playerEntity.coords.y][playerEntity.coords.x] = last(
+        this.mapEditor.previousGrids
+      )[playerEntity.coords.y][playerEntity.coords.x]
       this.mapEditor.grid[newPlayerEntity.coords.y][newPlayerEntity.coords.x] = newPlayerEntity
     })
 

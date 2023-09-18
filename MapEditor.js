@@ -27,4 +27,8 @@ export class MapEditor {
       this.grid[entity.coords.y][entity.coords.x] = entity
     })
   }
+
+  addPreviousGrid(grid) {
+    this.previousGrids.push(grid)
+  }
 }

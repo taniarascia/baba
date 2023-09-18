@@ -1,5 +1,5 @@
 import { UnitEntity, TextEntity } from '../Entity.js'
-import { nounTypes, actionTypes, connectorTypes } from '../constants.js'
+import { textTypes, nounTypes, actionTypes, connectorTypes } from '../constants.js'
 
 const entities = [
   new UnitEntity(nounTypes.WALL, { x: 4, y: 7 }),
@@ -36,21 +36,21 @@ const entities = [
 ]
 
 const textEntities = [
-  new TextEntity(nounTypes.BABA, { x: 4, y: 5 }),
-  new TextEntity(connectorTypes.IS, { x: 5, y: 5 }),
-  new TextEntity(actionTypes.YOU, { x: 6, y: 5 }),
+  new TextEntity(nounTypes.BABA, { x: 4, y: 5 }, textTypes.NOUN),
+  new TextEntity(connectorTypes.IS, { x: 5, y: 5 }, textTypes.CONNECTOR),
+  new TextEntity(actionTypes.YOU, { x: 6, y: 5 }, textTypes.ACTION),
 
-  new TextEntity(nounTypes.FLAG, { x: 12, y: 5 }),
-  new TextEntity(connectorTypes.IS, { x: 13, y: 5 }),
-  new TextEntity(actionTypes.WIN, { x: 14, y: 5 }),
+  new TextEntity(nounTypes.FLAG, { x: 12, y: 5 }, textTypes.NOUN),
+  new TextEntity(connectorTypes.IS, { x: 13, y: 5 }, textTypes.CONNECTOR),
+  new TextEntity(actionTypes.WIN, { x: 14, y: 5 }, textTypes.ACTION),
 
-  new TextEntity(nounTypes.WALL, { x: 4, y: 13 }),
-  new TextEntity(connectorTypes.IS, { x: 5, y: 13 }),
-  new TextEntity(actionTypes.STOP, { x: 6, y: 13 }),
+  new TextEntity(nounTypes.WALL, { x: 4, y: 13 }, textTypes.NOUN),
+  new TextEntity(connectorTypes.IS, { x: 5, y: 13 }, textTypes.CONNECTOR),
+  new TextEntity(actionTypes.STOP, { x: 6, y: 13 }, textTypes.ACTION),
 
-  new TextEntity(nounTypes.ROCK, { x: 12, y: 13 }),
-  new TextEntity(connectorTypes.IS, { x: 13, y: 13 }),
-  new TextEntity(actionTypes.PUSH, { x: 14, y: 13 }),
+  new TextEntity(nounTypes.ROCK, { x: 12, y: 13 }, textTypes.NOUN),
+  new TextEntity(connectorTypes.IS, { x: 13, y: 13 }, textTypes.CONNECTOR),
+  new TextEntity(actionTypes.PUSH, { x: 14, y: 13 }, textTypes.ACTION),
 ]
 
 export const LEVEL_0_MAP = [...entities, ...textEntities]
