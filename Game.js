@@ -3,8 +3,8 @@ import { findAdjacentRule, progress, getEntities, isPlayer, isWin, log } from '.
 import { UnitEntity } from './Entity.js'
 
 export class Game {
-  constructor(map, entities, gameInterface) {
-    this.map = map
+  constructor(mapEditor, entities, gameInterface) {
+    this.mapEditor = mapEditor
     this.interface = gameInterface
     this.entities = entities
 
@@ -28,27 +28,27 @@ export class Game {
   }
 
   populateMap() {
-    this.map.buildEmptyGrid()
-    this.map.addEntitiesToGrid(this.entities)
+    this.mapEditor.buildEmptyGrid()
+    this.mapEditor.addEntitiesToGrid(this.entities)
   }
 
   step() {
-    this.entities = getEntities(this.map.grid)
+    this.entities = getEntities(this.mapEditor.grid)
     this.findCurrentRulesOnGrid()
     this.findPlayer()
     this.checkForGameOver()
     this.checkForLevelComplete()
 
     log(this)
-    this.interface.render(this.map.grid)
+    this.interface.render(this.mapEditor.grid)
   }
 
   findCurrentRulesOnGrid() {
     const rules = []
 
     this.entities.forEach((entity) => {
-      const horizontalRule = findAdjacentRule(this.map.grid, entity, directionTypes.RIGHT)
-      const verticalRule = findAdjacentRule(this.map.grid, entity, directionTypes.DOWN)
+      const horizontalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.RIGHT)
+      const verticalRule = findAdjacentRule(this.mapEditor.grid, entity, directionTypes.DOWN)
 
       if (horizontalRule) rules.push(horizontalRule)
       if (verticalRule) rules.push(verticalRule)
@@ -70,14 +70,14 @@ export class Game {
   }
 
   movePlayer(direction) {
-    // temporary, until function actually checks for validity
+    // temporary, until function actually checks for validity and collisions
     this.player.forEach((playerEntity) => {
       const newPlayerEntity = new UnitEntity(
         playerEntity.word,
         progress(playerEntity.coords, direction)
       )
-      this.map.grid[playerEntity.coords.y][playerEntity.coords.x] = null
-      this.map.grid[newPlayerEntity.coords.y][newPlayerEntity.coords.x] = newPlayerEntity
+      this.mapEditor.grid[playerEntity.coords.y][playerEntity.coords.x] = null // TODO: Must be what was there before
+      this.mapEditor.grid[newPlayerEntity.coords.y][newPlayerEntity.coords.x] = newPlayerEntity
     })
 
     this.step()

@@ -42,25 +42,6 @@
       import { game } from './server.js'
       import { directionTypes } from './constants.js'
 
-      // const root = document.getElementById('root')
-      // root.innerHTML = ''
-
-      // game.map.grid.forEach((row) => {
-      //   row.forEach((column) => {
-      //     if (!column) {
-      //       root.innerHTML += '    '
-      //     } else {
-      //       if (column.noun === 'YOU') root.innerHTML += 'YOU_'
-      //       else if (column.noun === 'YOU') root.innerHTML += 'WIN_'
-      //       else if (column.noun === 'IS') root.innerHTML += '_IS_'
-      //       else {
-      //         root.innerHTML += column.noun
-      //       }
-      //     }
-      //   })
-      //   root.innerHTML += `\n`
-      // })
-
       document.addEventListener('keyup', (event) => {
         switch (event.key) {
           case 'ArrowUp':

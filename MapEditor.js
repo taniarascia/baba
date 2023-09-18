@@ -1,8 +1,9 @@
-export class GameMap {
+export class MapEditor {
   constructor(height, width) {
     this.height = height - 1
     this.width = width - 1
     this.grid = null
+    this.previousGrids = []
   }
 
   buildEmptyGrid() {
